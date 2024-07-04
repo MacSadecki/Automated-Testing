@@ -4,6 +4,22 @@ using NUnit.Framework;
 public class character_with_inventory
 {
     [Test]
+    public void with_no_armor_takes_full_damage()
+    {
+        // ARRANGE
+        ICharacter character= Substitute.For<ICharacter>();
+        Inventory inventory= new Inventory(character);
+
+        character.Inventory.Returns(inventory);
+
+        // ACT
+        int calculatedDamage = DamageCalculator.CalculateDamage(100, character);
+
+        // ASSES
+        Assert.AreEqual(100, calculatedDamage);
+    }
+
+    [Test]
     public void with_70_armor_takes_30_percent_damage()
     {
         // ARRANGE
